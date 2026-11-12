@@ -91,6 +91,9 @@
     content: "✓"; position: absolute; inset: -11px 0 0 1px;
     font-size: 30px; font-weight: 700; color: #c62828; transform: rotate(-8deg);
   }
+  li.subhead { margin-top: 18px; }
+  li.subhead .txt, li.subhead .edit-input { font-weight: 700; color: #455a64; letter-spacing: 1.5px; text-transform: uppercase; font-size: .8em; }
+  li.subhead .edit-input { border-bottom-color: rgba(69,90,100,.4); }
   .empty { font-size: clamp(20px, 2.6vw, 24px); color: #b0bec5; font-weight: 500; padding: 4px 2px; font-style: italic; }
   .biglist .empty { font-size: clamp(24px, 3.4vw, 30px); }
   .count { font-family: 'Patrick Hand', cursive; font-size: 15px; color: #90a4ae; margin-left: 8px; vertical-align: middle; }
@@ -278,8 +281,12 @@
   function criarItem(area, texto) {
     const li = document.createElement('li');
     li.dataset.area = area;
-    const box = document.createElement('span'); box.className = 'box';
-    li.appendChild(box);
+    const ehGrupo = texto.startsWith('## ');
+    if (ehGrupo) { li.dataset.grupo = '1'; li.classList.add('subhead'); texto = texto.slice(3); }
+    if (!ehGrupo) {
+      const box = document.createElement('span'); box.className = 'box';
+      li.appendChild(box);
+    }
     if (editando) {
       const grab = document.createElement('button'); grab.className = 'mini grab'; grab.textContent = '⠿'; grab.title = 'arrastar';
       li.appendChild(grab);
@@ -291,6 +298,7 @@
       const ok = document.createElement('button'); ok.className = 'mini ok'; ok.title = area === 'feito' ? 'desfazer' : 'feito!';
       ok.textContent = area === 'feito' ? '↩' : '✓';
       ok.addEventListener('click', () => { moverItem(li, area === 'feito' ? vistaPrincipalArea() : 'feito'); });
+      if (ehGrupo) ok.style.display = 'none';
       li.appendChild(ok);
       const del = document.createElement('button'); del.className = 'mini del'; del.textContent = '✕'; del.title = 'apagar';
       del.addEventListener('click', () => { li.remove(); agendarSalvar(); });
@@ -334,7 +342,8 @@
     const ul = $(ulId); if (!ul) return;
     ul.innerHTML = '';
     const itens = dados[area] || [];
-    if (countId) $(countId).textContent = itens.length ? '(' + itens.length + ')' : '';
+    const reais = itens.filter(t => !t.startsWith('## ')).length;
+    if (countId) $(countId).textContent = reais ? '(' + reais + ')' : '';
     if (!itens.length && !editando) {
       const li = document.createElement('li'); li.className = 'empty'; li.textContent = vazios[area];
       ul.appendChild(li); return;
@@ -357,7 +366,7 @@
   function renderPrevias() {
     [['raverlab', 'prev-raver-items', 'c-raverlab-prev'], ['geral', 'prev-geral-items', 'c-geral-prev']].forEach(([area, boxId, cId]) => {
       const box = $(boxId); box.innerHTML = '';
-      const itens = dados[area] || [];
+      const itens = (dados[area] || []).filter(t => !t.startsWith('## '));
       $(cId).textContent = itens.length ? '(' + itens.length + ')' : '';
       if (!itens.length) {
         const d = document.createElement('div'); d.className = 'pitem'; d.style.color = '#b0bec5'; d.textContent = 'nada por aqui';
@@ -393,7 +402,8 @@
       ul.querySelectorAll('li').forEach(li => {
         if (li.classList.contains('add-row') || li.classList.contains('empty')) return;
         const inp = li.querySelector('.edit-input');
-        const txt = inp ? inp.value.trim() : (li.querySelector('.txt') ? li.querySelector('.txt').textContent.trim() : '');
+        let txt = inp ? inp.value.trim() : (li.querySelector('.txt') ? li.querySelector('.txt').textContent.trim() : '');
+        if (txt && li.dataset.grupo) txt = '## ' + txt;
         if (txt) novo[area].push(txt);
       });
     });
