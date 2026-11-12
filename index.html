@@ -20,10 +20,8 @@
     color: #263238;
     display: flex; flex-direction: column;
   }
-  /* ---------- A LOUSA (tela inteira) ---------- */
   .board {
-    flex: 1;
-    width: 100%; max-width: 1600px; margin: 0 auto;
+    flex: 1; width: 100%; max-width: 1600px; margin: 0 auto;
     display: flex; flex-direction: column;
     background:
       radial-gradient(900px 300px at 15% 0%, rgba(255,255,255,.9), transparent 60%),
@@ -33,16 +31,9 @@
     border-image: linear-gradient(145deg, #d7dbdd, #8f9598 40%, #c9ced0 70%, #7e8589) 1;
     border-radius: 10px;
     box-shadow: 0 24px 50px rgba(40,32,18,.45), inset 0 0 60px rgba(120,130,120,.08);
-    padding: 20px 30px 12px;
-    position: relative;
+    padding: 20px 30px 12px; position: relative;
   }
-  .board::before, .board::after {
-    content: ""; position: absolute; pointer-events: none;
-    background: radial-gradient(closest-side, rgba(190,200,205,.20), transparent);
-    border-radius: 50%;
-  }
-  .board::before { width: 420px; height: 130px; left: 6%; bottom: 12%; transform: rotate(-4deg); }
-  .board::after  { width: 300px; height: 100px; right: 8%; top: 16%; transform: rotate(3deg); }
+  .hidden { display: none !important; }
 
   header { text-align: center; position: relative; z-index: 1; }
   h1 { font-size: clamp(38px, 5.5vw, 56px); font-weight: 700; color: #1f2a33; line-height: 1; }
@@ -50,38 +41,30 @@
   .today { font-family: 'Patrick Hand', cursive; font-size: clamp(14px, 2.2vw, 18px); color: #546e7a; margin-top: 2px; }
   .scribble { display: block; margin: 2px auto 0; width: min(430px, 80%); }
 
-  /* ---------- GRADE: grande + 2 pequenas na lateral ---------- */
   .grid {
-    flex: 1;
-    display: grid;
-    grid-template-columns: 2.3fr 1fr;
-    grid-template-rows: 1fr 1fr auto;
-    grid-template-areas:
-      "estudio raver"
-      "estudio geral"
-      "feito   feito";
-    gap: 6px 48px;
-    margin-top: 10px; position: relative; z-index: 1; min-height: 0;
+    flex: 1; display: grid; min-height: 0;
+    grid-template-columns: 2.3fr 1fr; grid-template-rows: 1fr auto;
+    grid-template-areas: "estudio lado" "feito feito";
+    gap: 6px 48px; margin-top: 10px; position: relative; z-index: 1;
   }
   @media (max-width: 820px) {
-    .grid { grid-template-columns: 1fr; grid-template-rows: auto; grid-template-areas: "estudio" "raver" "geral" "feito"; }
+    .grid { grid-template-columns: 1fr; grid-template-rows: auto; grid-template-areas: "estudio" "lado" "feito"; }
   }
-  section { padding: 8px 6px 10px; position: relative; overflow: hidden; }
   .estudio { grid-area: estudio; transform: rotate(-.2deg); }
-  .raver   { grid-area: raver;   transform: rotate(.25deg); }
-  .geral   { grid-area: geral;   transform: rotate(-.25deg); }
-  .feito   { grid-area: feito;   border-top: 3px dashed rgba(120,130,135,.35); padding-top: 10px; }
+  .lado { grid-area: lado; display: flex; flex-direction: column; gap: 22px; justify-content: flex-start; padding-top: 14px; }
+  .feito { grid-area: feito; border-top: 3px dashed rgba(120,130,135,.35); padding-top: 10px; }
+  section { padding: 8px 6px 10px; position: relative; }
 
   h2 {
     font-size: clamp(28px, 4vw, 38px); font-weight: 700; line-height: 1;
     display: inline-block; padding-bottom: 6px; margin-bottom: 8px;
     background-repeat: no-repeat; background-position: 0 100%; background-size: 100% 7px;
   }
-  .estudio h2 { font-size: clamp(36px, 5vw, 48px); color: #1565c0;
+  .estudio h2, .bigtitle { font-size: clamp(36px, 5vw, 48px); color: #1565c0;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='7' viewBox='0 0 120 7'%3E%3Cpath d='M2 5 Q 30 1 60 4 T 118 3' fill='none' stroke='%231565c0' stroke-width='3' stroke-linecap='round' opacity='.55'/%3E%3C/svg%3E"); }
-  .raver h2 { color: #c2185b;
+  .bigtitle.raver { color: #c2185b;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='7' viewBox='0 0 120 7'%3E%3Cpath d='M2 5 Q 30 1 60 4 T 118 3' fill='none' stroke='%23c2185b' stroke-width='3' stroke-linecap='round' opacity='.55'/%3E%3C/svg%3E"); }
-  .geral h2 { color: #2e7d32;
+  .bigtitle.geral { color: #2e7d32;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='7' viewBox='0 0 120 7'%3E%3Cpath d='M2 5 Q 30 1 60 4 T 118 3' fill='none' stroke='%232e7d32' stroke-width='3' stroke-linecap='round' opacity='.55'/%3E%3C/svg%3E"); }
   .feito h2 { font-size: clamp(24px, 3.4vw, 32px); color: #c62828;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='7' viewBox='0 0 120 7'%3E%3Cpath d='M2 5 Q 30 1 60 4 T 118 3' fill='none' stroke='%23c62828' stroke-width='3' stroke-linecap='round' opacity='.55'/%3E%3C/svg%3E"); }
@@ -92,14 +75,14 @@
     font-weight: 600; line-height: 1.18; padding: 5px 2px; color: #263238;
     font-size: clamp(21px, 2.8vw, 26px);
   }
-  .estudio li { font-size: clamp(27px, 4.2vw, 38px); padding: 8px 2px; }
+  .biglist li { font-size: clamp(27px, 4.2vw, 38px); padding: 8px 2px; }
   .box {
     flex: 0 0 auto; width: 24px; height: 24px; margin-top: 5px;
     border: 3px solid #37474f;
     border-radius: 255px 18px 225px 18px/18px 225px 18px 255px;
     background: rgba(255,255,255,.5); position: relative;
   }
-  .estudio .box { width: 30px; height: 30px; margin-top: 8px; }
+  .biglist .box { width: 30px; height: 30px; margin-top: 8px; }
   .feito ul { display: flex; flex-wrap: wrap; gap: 2px 34px; }
   .feito li { color: #78909c; font-size: clamp(20px, 2.6vw, 25px); }
   .feito li .txt { text-decoration: line-through; text-decoration-color: rgba(198,40,40,.75); text-decoration-thickness: 3px; }
@@ -109,98 +92,399 @@
     font-size: 30px; font-weight: 700; color: #c62828; transform: rotate(-8deg);
   }
   .empty { font-size: clamp(20px, 2.6vw, 24px); color: #b0bec5; font-weight: 500; padding: 4px 2px; font-style: italic; }
-  .estudio .empty { font-size: clamp(24px, 3.4vw, 30px); }
+  .biglist .empty { font-size: clamp(24px, 3.4vw, 30px); }
   .count { font-family: 'Patrick Hand', cursive; font-size: 15px; color: #90a4ae; margin-left: 8px; vertical-align: middle; }
 
-  /* bandeja com canetas */
+  /* ---------- PRÉVIAS LATERAIS ---------- */
+  .preview {
+    border: 3px dashed rgba(84,110,122,.45); border-radius: 14px 4px 16px 5px;
+    padding: 12px 16px 10px; cursor: pointer; background: rgba(255,255,255,.45);
+    transition: transform .15s ease, box-shadow .15s ease; position: relative;
+  }
+  .preview:hover { transform: rotate(0deg) scale(1.03) !important; box-shadow: 0 8px 18px rgba(40,32,18,.18); }
+  .preview.raver { transform: rotate(.6deg); }
+  .preview.geral { transform: rotate(-.6deg); }
+  .preview h3 { font-size: clamp(24px, 3.4vw, 32px); font-weight: 700; line-height: 1; }
+  .preview.raver h3 { color: #c2185b; }
+  .preview.geral h3 { color: #2e7d32; }
+  .preview .pitem { font-size: clamp(19px, 2.4vw, 23px); font-weight: 600; color: #455a64; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .preview .go { font-family: 'Patrick Hand', cursive; font-size: 14px; color: #78909c; margin-top: 4px; }
+
+  /* ---------- SUB-LOUSA ---------- */
+  .back {
+    position: absolute; top: 18px; left: 22px; z-index: 2;
+    font-family: 'Caveat', cursive; font-size: clamp(24px, 3.4vw, 32px); font-weight: 700;
+    color: #37474f; text-decoration: none; background: none; border: none; cursor: pointer;
+  }
+  .back:hover { color: #1565c0; }
+  .submain { flex: 1; padding: 8px 6px; min-height: 0; }
+
+  /* ---------- CANETA / EDIÇÃO ---------- */
+  .penbtn {
+    position: absolute; right: 22px; bottom: 16px; z-index: 3;
+    font-family: 'Caveat', cursive; font-weight: 700; cursor: pointer;
+    font-size: clamp(21px, 3vw, 27px); color: #fff;
+    background: linear-gradient(#42a5f5, #1565c0);
+    border: none; border-radius: 255px 18px 225px 18px/18px 225px 18px 255px;
+    padding: 8px 22px 10px; box-shadow: 0 5px 12px rgba(21,101,192,.4);
+    transform: rotate(-2deg);
+  }
+  .penbtn.on { background: linear-gradient(#66bb6a, #2e7d32); box-shadow: 0 5px 12px rgba(46,125,50,.4); }
+  .mini {
+    flex: 0 0 auto; border: none; background: none; cursor: pointer;
+    font-family: 'Patrick Hand', cursive; line-height: 1; padding: 2px 4px;
+    font-size: 20px; color: #90a4ae;
+  }
+  .mini.ok:hover { color: #2e7d32; }
+  .mini.del:hover { color: #c62828; }
+  .mini.grab { cursor: grab; color: #b0bec5; }
+  li.dragging { opacity: .35; }
+  li.dropzone { box-shadow: 0 -3px 0 0 #e8a13a; }
+  .edit-input, .add-input {
+    font-family: 'Caveat', cursive; font-weight: 600; color: #263238;
+    background: transparent; border: none; outline: none; width: 100%;
+    border-bottom: 2px dashed rgba(21,101,192,.4); font-size: inherit; line-height: 1.18;
+  }
+  .add-row { opacity: .75; }
+  .add-input::placeholder { color: #90a4ae; font-style: italic; }
+  .status { font-family: 'Patrick Hand', cursive; font-size: 14px; color: #78909c; min-height: 18px; }
+
   .tray {
     margin: 12px auto 0; width: 100%; max-width: 1600px; height: 16px; border-radius: 4px;
     background: linear-gradient(#cfd4d6, #9aa0a3);
     box-shadow: 0 8px 16px rgba(40,32,18,.35); position: relative; flex: 0 0 auto;
   }
   .pen { position: absolute; top: -9px; height: 9px; width: 92px; border-radius: 5px; box-shadow: 0 2px 3px rgba(0,0,0,.3); }
-  .pen.blue  { left: 12%; background: linear-gradient(#42a5f5, #1565c0); }
-  .pen.pink  { left: 30%; background: linear-gradient(#ec407a, #c2185b); width: 78px; }
-  .pen.green { left: 46%; background: linear-gradient(#66bb6a, #2e7d32); width: 85px; }
+  .pen.blue   { left: 12%; background: linear-gradient(#42a5f5, #1565c0); }
+  .pen.pink   { left: 30%; background: linear-gradient(#ec407a, #c2185b); width: 78px; }
+  .pen.green  { left: 46%; background: linear-gradient(#66bb6a, #2e7d32); width: 85px; }
   .eraser { position: absolute; top: -13px; right: 14%; width: 64px; height: 13px; border-radius: 3px;
     background: linear-gradient(#5d4037 0 55%, #d7ccc8 55% 100%); box-shadow: 0 2px 3px rgba(0,0,0,.3); }
 
-  footer {
-    text-align: center; margin-top: 10px; position: relative; z-index: 1;
-    font-family: 'Patrick Hand', cursive; color: #78909c; font-size: 14px;
-  }
+  footer { text-align: center; margin-top: 10px; position: relative; z-index: 1;
+    font-family: 'Patrick Hand', cursive; color: #78909c; font-size: 14px; }
 </style>
 </head>
 <body>
-  <div class="board">
+
+  <!-- ============ LOUSA PRINCIPAL ============ -->
+  <div class="board" id="view-principal">
     <header>
       <h1><span class="star">★</span> Quadro do Vitor <span class="star">★</span></h1>
       <div class="today" id="today">carregando…</div>
       <svg class="scribble" viewBox="0 0 430 10" preserveAspectRatio="none"><path d="M4 7 Q 110 1 215 6 T 426 4" fill="none" stroke="#e8a13a" stroke-width="4" stroke-linecap="round" opacity=".7"/></svg>
     </header>
-
     <div class="grid">
       <section class="estudio">
         <h2>ESTÚDIO</h2><span class="count" id="c-estudio"></span>
-        <ul id="l-estudio"></ul>
+        <ul class="biglist" id="l-estudio" data-area="estudio"></ul>
       </section>
-      <section class="raver">
-        <h2>RAVER LAB</h2><span class="count" id="c-raverlab"></span>
-        <ul id="l-raverlab"></ul>
-      </section>
-      <section class="geral">
-        <h2>GERAL</h2><span class="count" id="c-geral"></span>
-        <ul id="l-geral"></ul>
-      </section>
+      <div class="lado">
+        <div class="preview raver" id="prev-raver">
+          <h3>RAVER LAB <span class="count" id="c-raverlab-prev"></span></h3>
+          <div id="prev-raver-items"></div>
+          <div class="go">toca pra abrir a lousa →</div>
+        </div>
+        <div class="preview geral" id="prev-geral">
+          <h3>GERAL <span class="count" id="c-geral-prev"></span></h3>
+          <div id="prev-geral-items"></div>
+          <div class="go">toca pra abrir a lousa →</div>
+        </div>
+      </div>
       <section class="feito">
         <h2>FEITO ✓</h2><span class="count" id="c-feito"></span>
-        <ul id="l-feito"></ul>
+        <ul id="l-feito" data-area="feito"></ul>
       </section>
     </div>
-
-    <footer>manda a tarefa no WhatsApp que eu escrevo aqui ✎ &nbsp;·&nbsp; atualizado em <span id="upd">—</span></footer>
+    <footer>manda a tarefa no WhatsApp que eu escrevo aqui ✎ · atualizado em <span id="upd">—</span> · <span class="status" id="status"></span></footer>
+    <button class="penbtn" data-pen>✎ escrever</button>
   </div>
+
+  <!-- ============ LOUSA RAVER LAB ============ -->
+  <div class="board hidden" id="view-raverlab">
+    <a class="back" href="#">← voltar</a>
+    <header>
+      <h1 class="bigtitle raver" style="background-repeat:no-repeat;background-position:50% 100%;background-size:60% 7px;padding-bottom:8px;">RAVER LAB</h1>
+      <div class="today">lousa da Raver Lab</div>
+    </header>
+    <div class="submain">
+      <ul class="biglist" id="l-raverlab" data-area="raverlab"></ul>
+    </div>
+    <section class="feito">
+      <h2>FEITO ✓</h2><span class="count" id="c-feito-r"></span>
+      <ul id="l-feito-r" data-area="feito"></ul>
+    </section>
+    <footer><span class="status" id="status-r"></span></footer>
+    <button class="penbtn" data-pen>✎ escrever</button>
+  </div>
+
+  <!-- ============ LOUSA GERAL ============ -->
+  <div class="board hidden" id="view-geral">
+    <a class="back" href="#">← voltar</a>
+    <header>
+      <h1 class="bigtitle geral" style="background-repeat:no-repeat;background-position:50% 100%;background-size:60% 7px;padding-bottom:8px;">GERAL</h1>
+      <div class="today">lousa geral</div>
+    </header>
+    <div class="submain">
+      <ul class="biglist" id="l-geral" data-area="geral"></ul>
+    </div>
+    <section class="feito">
+      <h2>FEITO ✓</h2><span class="count" id="c-feito-g"></span>
+      <ul id="l-feito-g" data-area="feito"></ul>
+    </section>
+    <footer><span class="status" id="status-g"></span></footer>
+    <button class="penbtn" data-pen>✎ escrever</button>
+  </div>
+
   <div class="tray"><div class="pen blue"></div><div class="pen pink"></div><div class="pen green"></div><div class="eraser"></div></div>
 
 <script>
   const dias = ['domingo','segunda','terça','quarta','quinta','sexta','sábado'];
   const meses = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
   const agora = new Date();
-  document.getElementById('today').textContent =
-    dias[agora.getDay()] + ', ' + agora.getDate() + ' de ' + meses[agora.getMonth()];
+  document.getElementById('today').textContent = dias[agora.getDay()] + ', ' + agora.getDate() + ' de ' + meses[agora.getMonth()];
 
   const vazios = { estudio: 'nada por aqui… manda a próxima!', raverlab: 'nada por aqui', geral: 'nada por aqui', feito: 'bora fazer a primeira!' };
+  let dados = { estudio: [], raverlab: [], geral: [], feito: [], atualizado: '' };
+  let editando = false;
+  let modoAPI = false;
+  let timerSalvar = null;
 
-  function render(id, itens) {
-    const ul = document.getElementById('l-' + id);
-    const c = document.getElementById('c-' + id);
-    ul.innerHTML = '';
-    if (!itens || !itens.length) {
-      const li = document.createElement('li');
-      li.className = 'empty'; li.textContent = vazios[id];
-      ul.appendChild(li); c.textContent = '';
-      return;
+  const $ = (id) => document.getElementById(id);
+
+  /* ---------- navegação entre lousas ---------- */
+  function vistaAtual() {
+    const h = (location.hash || '').replace('#', '');
+    return (h === 'raverlab' || h === 'geral') ? h : 'principal';
+  }
+  function mostrarVista() {
+    const v = vistaAtual();
+    $('view-principal').classList.toggle('hidden', v !== 'principal');
+    $('view-raverlab').classList.toggle('hidden', v !== 'raverlab');
+    $('view-geral').classList.toggle('hidden', v !== 'geral');
+  }
+  window.addEventListener('hashchange', () => { mostrarVista(); renderTudo(); });
+  $('prev-raver').addEventListener('click', () => { location.hash = 'raverlab'; });
+  $('prev-geral').addEventListener('click', () => { location.hash = 'geral'; });
+
+  /* ---------- render ---------- */
+  function listasDaVista() {
+    const v = vistaAtual();
+    if (v === 'principal') return [['l-estudio', 'estudio', 'c-estudio'], ['l-feito', 'feito', 'c-feito']];
+    if (v === 'raverlab') return [['l-raverlab', 'raverlab', null], ['l-feito-r', 'feito', 'c-feito-r']];
+    return [['l-geral', 'geral', null], ['l-feito-g', 'feito', 'c-feito-g']];
+  }
+
+  function criarItem(area, texto) {
+    const li = document.createElement('li');
+    li.dataset.area = area;
+    const box = document.createElement('span'); box.className = 'box';
+    li.appendChild(box);
+    if (editando) {
+      const grab = document.createElement('button'); grab.className = 'mini grab'; grab.textContent = '⠿'; grab.title = 'arrastar';
+      li.appendChild(grab);
+      const input = document.createElement('input');
+      input.className = 'edit-input'; input.value = texto; input.dataset.orig = texto;
+      input.addEventListener('change', () => agendarSalvar());
+      input.addEventListener('keydown', (e) => { if (e.key === 'Enter') input.blur(); });
+      li.appendChild(input);
+      const ok = document.createElement('button'); ok.className = 'mini ok'; ok.title = area === 'feito' ? 'desfazer' : 'feito!';
+      ok.textContent = area === 'feito' ? '↩' : '✓';
+      ok.addEventListener('click', () => { moverItem(li, area === 'feito' ? vistaPrincipalArea() : 'feito'); });
+      li.appendChild(ok);
+      const del = document.createElement('button'); del.className = 'mini del'; del.textContent = '✕'; del.title = 'apagar';
+      del.addEventListener('click', () => { li.remove(); agendarSalvar(); });
+      li.appendChild(del);
+      li.draggable = true;
+      li.addEventListener('dragstart', (e) => { li.classList.add('dragging'); e.dataTransfer.setData('text/plain', ''); window._dragLi = li; });
+      li.addEventListener('dragend', () => { li.classList.remove('dragging'); document.querySelectorAll('.dropzone').forEach(x => x.classList.remove('dropzone')); });
+    } else {
+      const txt = document.createElement('span'); txt.className = 'txt'; txt.textContent = texto;
+      li.appendChild(txt);
     }
-    c.textContent = '(' + itens.length + ')';
-    itens.forEach(t => {
-      const li = document.createElement('li');
-      const box = document.createElement('span'); box.className = 'box';
-      const txt = document.createElement('span'); txt.className = 'txt'; txt.textContent = t;
-      li.appendChild(box); li.appendChild(txt);
-      ul.appendChild(li);
+    return li;
+  }
+
+  function vistaPrincipalArea() {
+    const v = vistaAtual();
+    return v === 'principal' ? 'estudio' : v;
+  }
+
+  function linhaAdicionar(area) {
+    const li = document.createElement('li');
+    li.className = 'add-row';
+    const box = document.createElement('span'); box.className = 'box'; box.style.opacity = '.35';
+    li.appendChild(box);
+    const input = document.createElement('input');
+    input.className = 'add-input'; input.placeholder = '+ escrever aqui e apertar Enter';
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && input.value.trim()) {
+        const novo = criarItem(area, input.value.trim());
+        li.before(novo);
+        input.value = '';
+        novo.querySelector('.edit-input').focus();
+        agendarSalvar();
+      }
+    });
+    li.appendChild(input);
+    return li;
+  }
+
+  function renderLista(ulId, area, countId) {
+    const ul = $(ulId); if (!ul) return;
+    ul.innerHTML = '';
+    const itens = dados[area] || [];
+    if (countId) $(countId).textContent = itens.length ? '(' + itens.length + ')' : '';
+    if (!itens.length && !editando) {
+      const li = document.createElement('li'); li.className = 'empty'; li.textContent = vazios[area];
+      ul.appendChild(li); return;
+    }
+    itens.forEach(t => ul.appendChild(criarItem(area, t)));
+    if (editando && area !== 'feito') ul.appendChild(linhaAdicionar(area));
+    // arrastar por cima das listas
+    ul.ondragover = (e) => { if (!editando) return; e.preventDefault(); };
+    ul.ondrop = (e) => {
+      if (!editando || !window._dragLi) return;
+      e.preventDefault();
+      const alvo = e.target.closest('li');
+      const li = window._dragLi; window._dragLi = null;
+      li.dataset.area = area;
+      if (alvo && alvo !== li && alvo.parentElement === ul) alvo.before(li); else ul.appendChild(li);
+      agendarSalvar();
+    };
+  }
+
+  function renderPrevias() {
+    [['raverlab', 'prev-raver-items', 'c-raverlab-prev'], ['geral', 'prev-geral-items', 'c-geral-prev']].forEach(([area, boxId, cId]) => {
+      const box = $(boxId); box.innerHTML = '';
+      const itens = dados[area] || [];
+      $(cId).textContent = itens.length ? '(' + itens.length + ')' : '';
+      if (!itens.length) {
+        const d = document.createElement('div'); d.className = 'pitem'; d.style.color = '#b0bec5'; d.textContent = 'nada por aqui';
+        box.appendChild(d); return;
+      }
+      itens.slice(0, 2).forEach(t => {
+        const d = document.createElement('div'); d.className = 'pitem'; d.textContent = '• ' + t;
+        box.appendChild(d);
+      });
+      if (itens.length > 2) {
+        const d = document.createElement('div'); d.className = 'pitem'; d.style.color = '#90a4ae';
+        d.textContent = '… e mais ' + (itens.length - 2);
+        box.appendChild(d);
+      }
     });
   }
 
-  fetch('tarefas.json', { cache: 'no-store' })
-    .then(r => r.json())
-    .then(d => {
-      render('estudio', d.estudio); render('raverlab', d.raverlab);
-      render('geral', d.geral); render('feito', d.feito);
-      if (d.atualizado) document.getElementById('upd').textContent = d.atualizado;
-    })
-    .catch(() => {
-      document.getElementById('l-estudio').innerHTML = '<li class="empty">não consegui ler as tarefas…</li>';
+  function renderTudo() {
+    listasDaVista().forEach(([ul, area, c]) => renderLista(ul, area, c));
+    if (vistaAtual() === 'principal') renderPrevias();
+    if (dados.atualizado) $('upd').textContent = dados.atualizado;
+    document.querySelectorAll('[data-pen]').forEach(b => {
+      b.textContent = editando ? '✓ pronto' : '✎ escrever';
+      b.classList.toggle('on', editando);
     });
+  }
+
+  /* ---------- dados: coletar da tela / salvar ---------- */
+  function coletar() {
+    const novo = { estudio: [], raverlab: [], geral: [], feito: [], atualizado: dados.atualizado };
+    document.querySelectorAll('ul[data-area]').forEach(ul => {
+      const area = ul.dataset.area;
+      ul.querySelectorAll('li').forEach(li => {
+        if (li.classList.contains('add-row') || li.classList.contains('empty')) return;
+        const inp = li.querySelector('.edit-input');
+        const txt = inp ? inp.value.trim() : (li.querySelector('.txt') ? li.querySelector('.txt').textContent.trim() : '');
+        if (txt) novo[area].push(txt);
+      });
+    });
+    // áreas fora da vista atual vêm dos dados guardados (a vista principal não mostra raver/geral inteiros)
+    const v = vistaAtual();
+    if (v === 'principal') { novo.raverlab = dados.raverlab; novo.geral = dados.geral; }
+    if (v === 'raverlab') { novo.estudio = dados.estudio; novo.geral = dados.geral; }
+    if (v === 'geral') { novo.estudio = dados.estudio; novo.raverlab = dados.raverlab; }
+    return novo;
+  }
+
+  function moverItem(li, destino) {
+    const origem = li.dataset.area;
+    const texto = li.querySelector('.edit-input') ? li.querySelector('.edit-input').value : li.querySelector('.txt').textContent;
+    dados = coletar();
+    const idx = dados[origem].indexOf(texto);
+    if (idx >= 0) dados[origem].splice(idx, 1);
+    dados[destino].unshift(texto);
+    renderTudo();
+    agendarSalvar();
+  }
+
+  function statusEmTodas(msg) {
+    ['status', 'status-r', 'status-g'].forEach(id => { const el = $(id); if (el) el.textContent = msg; });
+  }
+
+  function agendarSalvar() {
+    if (!editando) return;
+    statusEmTodas('escrevendo…');
+    clearTimeout(timerSalvar);
+    timerSalvar = setTimeout(salvar, 700);
+  }
+
+  async function salvar() {
+    dados = coletar();
+    if (!modoAPI) { statusEmTodas('neste link a caneta não salva — abre pelo link da Vercel'); return; }
+    const pin = sessionStorage.getItem('quadroPin') || '';
+    try {
+      const r = await fetch('/api/tarefas', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ pin, dados })
+      });
+      if (r.status === 401) {
+        sessionStorage.removeItem('quadroPin');
+        statusEmTodas('PIN errado — sai e entra na caneta de novo');
+        return;
+      }
+      const j = await r.json();
+      if (j.ok) { dados = j.dados; if (dados.atualizado) $('upd').textContent = dados.atualizado; statusEmTodas('salvo ✓'); }
+      else statusEmTodas('não salvou — tenta de novo');
+    } catch (e) { statusEmTodas('sem conexão pra salvar'); }
+  }
+
+  /* ---------- caneta ---------- */
+  document.querySelectorAll('[data-pen]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (editando) {
+        dados = coletar();
+        salvar();
+        editando = false;
+        renderTudo();
+        statusEmTodas('');
+        return;
+      }
+      if (modoAPI && !sessionStorage.getItem('quadroPin')) {
+        const pin = prompt('PIN da lousa:');
+        if (!pin) return;
+        sessionStorage.setItem('quadroPin', pin.trim());
+      }
+      editando = true;
+      renderTudo();
+    });
+  });
+
+  /* ---------- carga inicial ---------- */
+  async function carregar() {
+    try {
+      const r = await fetch('/api/tarefas', { cache: 'no-store' });
+      if (!r.ok) throw new Error('api');
+      dados = await r.json();
+      modoAPI = true;
+    } catch (e) {
+      try {
+        const r = await fetch('tarefas.json', { cache: 'no-store' });
+        dados = await r.json();
+      } catch (e2) { /* mantém vazio */ }
+    }
+    mostrarVista();
+    renderTudo();
+  }
+  carregar();
 </script>
 </body>
 </html>
