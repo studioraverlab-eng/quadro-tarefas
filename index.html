@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quadro do Vitor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { min-height: 100%; }
+  body {
+    font-family: 'Caveat', cursive;
+    background:
+      radial-gradient(1200px 600px at 20% -10%, #efe7da 0%, transparent 60%),
+      radial-gradient(1000px 500px at 110% 110%, #d9e2d0 0%, transparent 55%),
+      linear-gradient(160deg, #cfc4b2 0%, #bfb49e 55%, #b3a68d 100%);
+    padding: 22px 14px 40px;
+    color: #263238;
+  }
+  /* ---------- A LOUSA ---------- */
+  .board {
+    max-width: 1080px;
+    margin: 0 auto;
+    background:
+      radial-gradient(900px 300px at 15% 0%, rgba(255,255,255,.9), transparent 60%),
+      radial-gradient(700px 500px at 95% 100%, rgba(210,225,235,.35), transparent 60%),
+      #fdfdf8;
+    border: 14px solid #9aa0a3;
+    border-image: linear-gradient(145deg, #d7dbdd, #8f9598 40%, #c9ced0 70%, #7e8589) 1;
+    border-radius: 10px;
+    box-shadow: 0 24px 50px rgba(40,32,18,.45), inset 0 0 60px rgba(120,130,120,.08);
+    padding: 26px 30px 18px;
+    position: relative;
+  }
+  /* borrões de apagador */
+  .board::before, .board::after {
+    content: ""; position: absolute; pointer-events: none;
+    background: radial-gradient(closest-side, rgba(190,200,205,.20), transparent);
+    border-radius: 50%;
+  }
+  .board::before { width: 420px; height: 130px; left: 6%; bottom: 12%; transform: rotate(-4deg); }
+  .board::after  { width: 300px; height: 100px; right: 8%; top: 16%; transform: rotate(3deg); }
+
+  header { text-align: center; position: relative; z-index: 1; }
+  h1 {
+    font-size: clamp(42px, 7vw, 64px); font-weight: 700; color: #1f2a33;
+    letter-spacing: .5px; line-height: 1;
+  }
+  h1 .star { color: #e8a13a; font-size: .8em; }
+  .today {
+    font-family: 'Patrick Hand', cursive; font-size: clamp(15px, 2.6vw, 19px);
+    color: #546e7a; margin-top: 2px;
+  }
+  .scribble {
+    display: block; margin: 4px auto 0; width: min(430px, 80%);
+  }
+
+  .grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px 44px;
+    margin-top: 14px; position: relative; z-index: 1;
+  }
+  @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } }
+
+  section { padding: 10px 6px 14px; position: relative; }
+  section:nth-child(odd)  { transform: rotate(-.25deg); }
+  section:nth-child(even) { transform: rotate(.2deg); }
+
+  h2 {
+    font-size: clamp(30px, 4.6vw, 40px); font-weight: 700; line-height: 1;
+    display: inline-block; padding-bottom: 6px; margin-bottom: 10px;
+    background-repeat: no-repeat; background-position: 0 100%; background-size: 100% 7px;
+  }
+  .hoje   h2 { color: #1565c0; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='7' viewBox='0 0 120 7'%3E%3Cpath d='M2 5 Q 30 1 60 4 T 118 3' fill='none' stroke='%231565c0' stroke-width='3' stroke-linecap='round' opacity='.55'/%3E%3C/svg%3E"); }
+  .semana h2 { color: #2e7d32; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='7' viewBox='0 0 120 7'%3E%3Cpath d='M2 5 Q 30 1 60 4 T 118 3' fill='none' stroke='%232e7d32' stroke-width='3' stroke-linecap='round' opacity='.55'/%3E%3C/svg%3E"); }
+  .mes    h2 { color: #7b1fa2; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='7' viewBox='0 0 120 7'%3E%3Cpath d='M2 5 Q 30 1 60 4 T 118 3' fill='none' stroke='%237b1fa2' stroke-width='3' stroke-linecap='round' opacity='.55'/%3E%3C/svg%3E"); }
+  .feito  h2 { color: #c62828; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='7' viewBox='0 0 120 7'%3E%3Cpath d='M2 5 Q 30 1 60 4 T 118 3' fill='none' stroke='%23c62828' stroke-width='3' stroke-linecap='round' opacity='.55'/%3E%3C/svg%3E"); }
+
+  ul { list-style: none; }
+  li {
+    display: flex; align-items: flex-start; gap: 12px;
+    font-size: clamp(23px, 3.6vw, 29px); font-weight: 600; line-height: 1.18;
+    padding: 5px 2px; color: #263238;
+  }
+  .box {
+    flex: 0 0 auto; width: 24px; height: 24px; margin-top: 5px;
+    border: 3px solid #37474f;
+    border-radius: 255px 18px 225px 18px/18px 225px 18px 255px;
+    position: relative; background: rgba(255,255,255,.5);
+  }
+  .feito li { color: #78909c; }
+  .feito li .txt {
+    text-decoration: line-through; text-decoration-color: rgba(198,40,40,.75);
+    text-decoration-thickness: 3px;
+  }
+  .feito .box { border-color: #c62828; }
+  .feito .box::after {
+    content: "✓"; position: absolute; inset: -12px 0 0 1px;
+    font-size: 34px; font-weight: 700; color: #c62828; transform: rotate(-8deg);
+  }
+  .empty {
+    font-size: clamp(21px, 3.2vw, 25px); color: #b0bec5; font-weight: 500;
+    padding: 4px 2px; font-style: italic;
+  }
+  .count {
+    font-family: 'Patrick Hand', cursive; font-size: 15px; color: #90a4ae;
+    margin-left: 8px; vertical-align: middle;
+  }
+
+  /* bandeja com canetas */
+  .tray {
+    margin: 16px auto 0; max-width: 1080px; height: 16px; border-radius: 4px;
+    background: linear-gradient(#cfd4d6, #9aa0a3);
+    box-shadow: 0 8px 16px rgba(40,32,18,.35);
+    position: relative;
+  }
+  .pen { position: absolute; top: -9px; height: 9px; width: 92px; border-radius: 5px; box-shadow: 0 2px 3px rgba(0,0,0,.3); }
+  .pen.blue   { left: 12%; background: linear-gradient(#42a5f5, #1565c0); }
+  .pen.red    { left: 30%; background: linear-gradient(#ef5350, #c62828); width: 78px; }
+  .pen.green  { left: 46%; background: linear-gradient(#66bb6a, #2e7d32); width: 85px; }
+  .eraser {
+    position: absolute; top: -13px; right: 14%; width: 64px; height: 13px; border-radius: 3px;
+    background: linear-gradient(#5d4037 0 55%, #d7ccc8 55% 100%);
+    box-shadow: 0 2px 3px rgba(0,0,0,.3);
+  }
+
+  footer {
+    text-align: center; margin-top: 18px; position: relative; z-index: 1;
+    font-family: 'Patrick Hand', cursive; color: #78909c; font-size: 15px;
+  }
+</style>
+</head>
+<body>
+  <div class="board">
+    <header>
+      <h1><span class="star">★</span> Quadro do Vitor <span class="star">★</span></h1>
+      <div class="today" id="today">carregando…</div>
+      <svg class="scribble" viewBox="0 0 430 10" preserveAspectRatio="none"><path d="M4 7 Q 110 1 215 6 T 426 4" fill="none" stroke="#e8a13a" stroke-width="4" stroke-linecap="round" opacity=".7"/></svg>
+    </header>
+
+    <div class="grid">
+      <section class="hoje">
+        <h2>HOJE</h2><span class="count" id="c-hoje"></span>
+        <ul id="l-hoje"></ul>
+      </section>
+      <section class="semana">
+        <h2>SEMANA</h2><span class="count" id="c-semana"></span>
+        <ul id="l-semana"></ul>
+      </section>
+      <section class="mes">
+        <h2>MÊS</h2><span class="count" id="c-mes"></span>
+        <ul id="l-mes"></ul>
+      </section>
+      <section class="feito">
+        <h2>FEITO ✓</h2><span class="count" id="c-feito"></span>
+        <ul id="l-feito"></ul>
+      </section>
+    </div>
+
+    <footer>manda a tarefa no WhatsApp que eu escrevo aqui ✎ &nbsp;·&nbsp; atualizado em <span id="upd">—</span></footer>
+  </div>
+  <div class="tray"><div class="pen blue"></div><div class="pen red"></div><div class="pen green"></div><div class="eraser"></div></div>
+
+<script>
+  const dias = ['domingo','segunda','terça','quarta','quinta','sexta','sábado'];
+  const meses = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+  const agora = new Date();
+  document.getElementById('today').textContent =
+    dias[agora.getDay()] + ', ' + agora.getDate() + ' de ' + meses[agora.getMonth()];
+
+  const vazios = { hoje: 'nada pra hoje… ufa!', semana: 'semana livre!', mes: 'nada por aqui', feito: 'bora fazer a primeira!' };
+
+  function render(id, itens) {
+    const ul = document.getElementById('l-' + id);
+    const c = document.getElementById('c-' + id);
+    ul.innerHTML = '';
+    if (!itens || !itens.length) {
+      const li = document.createElement('li');
+      li.className = 'empty'; li.textContent = vazios[id];
+      ul.appendChild(li); c.textContent = '';
+      return;
+    }
+    c.textContent = '(' + itens.length + ')';
+    itens.forEach(t => {
+      const li = document.createElement('li');
+      const box = document.createElement('span'); box.className = 'box';
+      const txt = document.createElement('span'); txt.className = 'txt'; txt.textContent = t;
+      li.appendChild(box); li.appendChild(txt);
+      ul.appendChild(li);
+    });
+  }
+
+  fetch('tarefas.json', { cache: 'no-store' })
+    .then(r => r.json())
+    .then(d => {
+      render('hoje', d.hoje); render('semana', d.semana);
+      render('mes', d.mes); render('feito', d.feito);
+      if (d.atualizado) document.getElementById('upd').textContent = d.atualizado;
+    })
+    .catch(() => {
+      document.getElementById('l-hoje').innerHTML = '<li class="empty">não consegui ler as tarefas…</li>';
+    });
+</script>
+</body>
+</html>
