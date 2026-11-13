@@ -63,6 +63,10 @@
   }
   .estudio h2, .bigtitle { font-size: clamp(36px, 5vw, 48px); color: #1565c0;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='7' viewBox='0 0 120 7'%3E%3Cpath d='M2 5 Q 30 1 60 4 T 118 3' fill='none' stroke='%231565c0' stroke-width='3' stroke-linecap='round' opacity='.55'/%3E%3C/svg%3E"); }
+  .ravermain h2 { color: #c2185b;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='7' viewBox='0 0 120 7'%3E%3Cpath d='M2 5 Q 30 1 60 4 T 118 3' fill='none' stroke='%23c2185b' stroke-width='3' stroke-linecap='round' opacity='.55'/%3E%3C/svg%3E"); }
+  .preview.estudio h3 { color: #1565c0; }
+  .preview.estudio { transform: rotate(.6deg); }
   .bigtitle.raver { color: #c2185b;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='7' viewBox='0 0 120 7'%3E%3Cpath d='M2 5 Q 30 1 60 4 T 118 3' fill='none' stroke='%23c2185b' stroke-width='3' stroke-linecap='round' opacity='.55'/%3E%3C/svg%3E"); }
   .bigtitle.geral { color: #2e7d32;
@@ -181,14 +185,14 @@
       <svg class="scribble" viewBox="0 0 430 10" preserveAspectRatio="none"><path d="M4 7 Q 110 1 215 6 T 426 4" fill="none" stroke="#e8a13a" stroke-width="4" stroke-linecap="round" opacity=".7"/></svg>
     </header>
     <div class="grid">
-      <section class="estudio">
-        <h2>ESTÚDIO</h2><span class="count" id="c-estudio"></span>
-        <ul class="biglist" id="l-estudio" data-area="estudio"></ul>
+      <section class="estudio ravermain">
+        <h2>RAVER LAB</h2><span class="count" id="c-raverlab"></span>
+        <ul class="biglist" id="l-raverlab" data-area="raverlab"></ul>
       </section>
       <div class="lado">
-        <div class="preview raver" id="prev-raver">
-          <h3>RAVER LAB <span class="count" id="c-raverlab-prev"></span></h3>
-          <div id="prev-raver-items"></div>
+        <div class="preview estudio" id="prev-estudio">
+          <h3>ESTÚDIO <span class="count" id="c-estudio-prev"></span></h3>
+          <div id="prev-estudio-items"></div>
           <div class="go">toca pra abrir a lousa →</div>
         </div>
         <div class="preview geral" id="prev-geral">
@@ -206,21 +210,21 @@
     <button class="penbtn" data-pen>✎ escrever</button>
   </div>
 
-  <!-- ============ LOUSA RAVER LAB ============ -->
-  <div class="board hidden" id="view-raverlab">
+  <!-- ============ LOUSA ESTÚDIO ============ -->
+  <div class="board hidden" id="view-estudio">
     <a class="back" href="#">← voltar</a>
     <header>
-      <h1 class="bigtitle raver" style="background-repeat:no-repeat;background-position:50% 100%;background-size:60% 7px;padding-bottom:8px;">RAVER LAB</h1>
-      <div class="today">lousa da Raver Lab</div>
+      <h1 class="bigtitle" style="background-repeat:no-repeat;background-position:50% 100%;background-size:60% 7px;padding-bottom:8px;">ESTÚDIO</h1>
+      <div class="today">lousa do Estúdio</div>
     </header>
     <div class="submain">
-      <ul class="biglist" id="l-raverlab" data-area="raverlab"></ul>
+      <ul class="biglist" id="l-estudio" data-area="estudio"></ul>
     </div>
     <section class="feito">
-      <h2>FEITO ✓</h2><span class="count" id="c-feito-r"></span>
-      <ul id="l-feito-r" data-area="feito"></ul>
+      <h2>FEITO ✓</h2><span class="count" id="c-feito-e"></span>
+      <ul id="l-feito-e" data-area="feito"></ul>
     </section>
-    <footer><span class="status" id="status-r"></span></footer>
+    <footer><span class="status" id="status-e"></span></footer>
     <button class="penbtn" data-pen>✎ escrever</button>
   </div>
 
@@ -261,23 +265,23 @@
   /* ---------- navegação entre lousas ---------- */
   function vistaAtual() {
     const h = (location.hash || '').replace('#', '');
-    return (h === 'raverlab' || h === 'geral') ? h : 'principal';
+    return (h === 'estudio' || h === 'geral') ? h : 'principal';
   }
   function mostrarVista() {
     const v = vistaAtual();
     $('view-principal').classList.toggle('hidden', v !== 'principal');
-    $('view-raverlab').classList.toggle('hidden', v !== 'raverlab');
+    $('view-estudio').classList.toggle('hidden', v !== 'estudio');
     $('view-geral').classList.toggle('hidden', v !== 'geral');
   }
   window.addEventListener('hashchange', () => { mostrarVista(); renderTudo(); });
-  $('prev-raver').addEventListener('click', () => { location.hash = 'raverlab'; });
+  $('prev-estudio').addEventListener('click', () => { location.hash = 'estudio'; });
   $('prev-geral').addEventListener('click', () => { location.hash = 'geral'; });
 
   /* ---------- render ---------- */
   function listasDaVista() {
     const v = vistaAtual();
-    if (v === 'principal') return [['l-estudio', 'estudio', 'c-estudio'], ['l-feito', 'feito', 'c-feito']];
-    if (v === 'raverlab') return [['l-raverlab', 'raverlab', null], ['l-feito-r', 'feito', 'c-feito-r']];
+    if (v === 'principal') return [['l-raverlab', 'raverlab', 'c-raverlab'], ['l-feito', 'feito', 'c-feito']];
+    if (v === 'estudio') return [['l-estudio', 'estudio', null], ['l-feito-e', 'feito', 'c-feito-e']];
     return [['l-geral', 'geral', null], ['l-feito-g', 'feito', 'c-feito-g']];
   }
 
@@ -318,7 +322,7 @@
 
   function vistaPrincipalArea() {
     const v = vistaAtual();
-    return v === 'principal' ? 'estudio' : v;
+    return v === 'principal' ? 'raverlab' : v;
   }
 
   function linhaAdicionar(area) {
@@ -367,7 +371,7 @@
   }
 
   function renderPrevias() {
-    [['raverlab', 'prev-raver-items', 'c-raverlab-prev'], ['geral', 'prev-geral-items', 'c-geral-prev']].forEach(([area, boxId, cId]) => {
+    [['estudio', 'prev-estudio-items', 'c-estudio-prev'], ['geral', 'prev-geral-items', 'c-geral-prev']].forEach(([area, boxId, cId]) => {
       const box = $(boxId); box.innerHTML = '';
       const itens = (dados[area] || []).filter(t => !t.startsWith('## '));
       $(cId).textContent = itens.length ? '(' + itens.length + ')' : '';
@@ -412,8 +416,8 @@
     });
     // áreas fora da vista atual vêm dos dados guardados (a vista principal não mostra raver/geral inteiros)
     const v = vistaAtual();
-    if (v === 'principal') { novo.raverlab = dados.raverlab; novo.geral = dados.geral; }
-    if (v === 'raverlab') { novo.estudio = dados.estudio; novo.geral = dados.geral; }
+    if (v === 'principal') { novo.estudio = dados.estudio; novo.geral = dados.geral; }
+    if (v === 'estudio') { novo.raverlab = dados.raverlab; novo.geral = dados.geral; }
     if (v === 'geral') { novo.estudio = dados.estudio; novo.raverlab = dados.raverlab; }
     return novo;
   }
@@ -430,7 +434,7 @@
   }
 
   function statusEmTodas(msg) {
-    ['status', 'status-r', 'status-g'].forEach(id => { const el = $(id); if (el) el.textContent = msg; });
+    ['status', 'status-e', 'status-g'].forEach(id => { const el = $(id); if (el) el.textContent = msg; });
   }
 
   function agendarSalvar() {
