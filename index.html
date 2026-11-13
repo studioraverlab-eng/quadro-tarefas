@@ -6,12 +6,12 @@
 <title>Quadro do Vitor</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Nunito:wght@600;700;800&family=Patrick+Hand&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html, body { height: 100%; }
   body {
-    font-family: 'Caveat', cursive;
+    font-family: 'Nunito', sans-serif;
     background:
       radial-gradient(1200px 600px at 20% -10%, #efe7da 0%, transparent 60%),
       radial-gradient(1000px 500px at 110% 110%, #d9e2d0 0%, transparent 55%),
@@ -35,6 +35,7 @@
   }
   .hidden { display: none !important; }
 
+  h1, h2, .preview h3 { font-family: 'Caveat', cursive; }
   header { text-align: center; position: relative; z-index: 1; }
   h1 { font-size: clamp(38px, 5.5vw, 56px); font-weight: 700; color: #1f2a33; line-height: 1; }
   h1 .star { color: #e8a13a; font-size: .8em; }
@@ -73,11 +74,11 @@
   .grid > * { min-width: 0; }
   li {
     display: flex; align-items: flex-start; gap: 12px;
-    font-weight: 600; line-height: 1.18; padding: 5px 2px; color: #263238;
-    font-size: clamp(21px, 2.8vw, 26px);
+    font-weight: 700; line-height: 1.25; padding: 5px 2px; color: #263238;
+    font-size: clamp(19px, 2.4vw, 23px);
   }
   li .txt { flex: 1 1 auto; min-width: 0; white-space: normal; overflow-wrap: break-word; }
-  .biglist li { font-size: clamp(26px, 3.6vw, 36px); padding: 8px 2px; }
+  .biglist li { font-size: clamp(23px, 3vw, 30px); padding: 8px 2px; }
   .box {
     flex: 0 0 auto; width: 24px; height: 24px; margin-top: 5px;
     border: 3px solid #37474f;
@@ -112,13 +113,13 @@
   .preview h3 { font-size: clamp(24px, 3.4vw, 32px); font-weight: 700; line-height: 1; }
   .preview.raver h3 { color: #c2185b; }
   .preview.geral h3 { color: #2e7d32; }
-  .preview .pitem { font-size: clamp(19px, 2.4vw, 23px); font-weight: 600; color: #455a64; white-space: normal; overflow: visible; overflow-wrap: break-word; line-height: 1.15; }
+  .preview .pitem { font-size: clamp(16px, 2vw, 19px); font-weight: 700; color: #455a64; white-space: normal; overflow: visible; overflow-wrap: break-word; line-height: 1.25; }
   .preview .go { font-family: 'Patrick Hand', cursive; font-size: 14px; color: #78909c; margin-top: 4px; }
 
   /* ---------- SUB-LOUSA ---------- */
   .back {
     position: absolute; top: 18px; left: 22px; z-index: 2;
-    font-family: 'Caveat', cursive; font-size: clamp(24px, 3.4vw, 32px); font-weight: 700;
+    font-family: 'Nunito', sans-serif; font-size: clamp(20px, 2.8vw, 26px); font-weight: 800;
     color: #37474f; text-decoration: none; background: none; border: none; cursor: pointer;
   }
   .back:hover { color: #1565c0; }
@@ -127,8 +128,8 @@
   /* ---------- CANETA / EDIÇÃO ---------- */
   .penbtn {
     position: absolute; right: 22px; bottom: 16px; z-index: 3;
-    font-family: 'Caveat', cursive; font-weight: 700; cursor: pointer;
-    font-size: clamp(21px, 3vw, 27px); color: #fff;
+    font-family: 'Nunito', sans-serif; font-weight: 800; cursor: pointer;
+    font-size: clamp(18px, 2.6vw, 23px); color: #fff;
     background: linear-gradient(#42a5f5, #1565c0);
     border: none; border-radius: 255px 18px 225px 18px/18px 225px 18px 255px;
     padding: 8px 22px 10px; box-shadow: 0 5px 12px rgba(21,101,192,.4);
@@ -146,7 +147,7 @@
   li.dragging { opacity: .35; }
   li.dropzone { box-shadow: 0 -3px 0 0 #e8a13a; }
   .edit-input, .add-input {
-    font-family: 'Caveat', cursive; font-weight: 600; color: #263238;
+    font-family: 'Nunito', sans-serif; font-weight: 700; color: #263238;
     background: transparent; border: none; outline: none; width: 100%;
     border-bottom: 2px dashed rgba(21,101,192,.4); font-size: inherit; line-height: 1.18;
   }
