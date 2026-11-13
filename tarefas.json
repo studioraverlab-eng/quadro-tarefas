@@ -29,7 +29,12 @@
   "Embalagem - verificar nova",
   "Pesquisar um novo tipo de roupa para desenvolver"
  ],
- "geral": [],
+ "geral": [
+  "Arrumar farmácia pra aplicar testo",
+  "Fechar a semana de treino",
+  "Fazer compras do mercado",
+  "Guardar dinheiro pro aluguel mês que vem"
+ ],
  "feito": [],
  "atualizado": "12/11/2026"
 }
